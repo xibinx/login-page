@@ -39,9 +39,38 @@ app.post('/signup',(req,res)=>{
         res.send(200);
        })
   })
-mongoose.connection.collections.users.drop();
-let demoUser = new User({email:"agrawaldev14@gmail.com" , password:"1234"});
-demoUser.save();
+  app.get('/info/:email',(req,res)=>{
+    console.log("info request recieved for ",req.params.email);
+    User.findOne({email: req.params.email}).then((result)=>{
+       console.log("found");
+       res.type('json');
+       console.log(res.json(result));
+    })
+  
+  })
+
+  app.post('/editUser', (req,res)=>{
+    console.log("edit request recieved for ",req.body.email);
+    User.findOne({email: req.body.email}).then((result)=>{
+        if(result !== null){
+       result.name = req.body.name;
+       result.phone = req.body.phone;
+       result.adress = req.body.adress;
+       if(req.body.password)
+       result.password = req.body.password;
+       result.save().then(()=>{
+        res.send(200);
+       })
+        }
+        else
+        res.send(404);
+
+    })
+  
+  })
+//mongoose.connection.collections.users.drop();
+//let demoUser = new User({email:"agrawaldev14@gmail.com" , password:"1234"});
+//demoUser.save();
 
 
 

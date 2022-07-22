@@ -6,6 +6,8 @@ const userSchema = new mongoose.Schema({
      min: 1,
      max: 90
     },
+    phone: String,
+    adress: String,
     email: {
     type:    String,
     minLength: 3,

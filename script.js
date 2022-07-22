@@ -42,8 +42,9 @@ async function postData(data = {}) {
   });
   
   if(response.ok){
-    
-  window.location.href= "http://127.0.0.1:5500/loginbasic/welcome.html";
+    window.localStorage.setItem('user', userlogin.email);
+    window.location.href= "http://127.0.0.1:5500/loginbasic/welcome.html";
+
 
   }
   else
@@ -51,7 +52,7 @@ async function postData(data = {}) {
     const label = form.querySelector('label.forgot');
     label.textContent = "Wrong email/password";
   }
-  module.exports.user = userlogin;
+
 }
 
 
